@@ -14,4 +14,7 @@ Route::group([
     'prefix' => 'clientes'
 ], function() {
     Route::get("/", "ClientesController@listagem");
+    Route::get("/novo", "ClientesController@formulario");
+    Route::get("/{id}/editar", "ClientesController@formulario");
+    Route::post("/salvar", "ClientesController@salvar");
 });

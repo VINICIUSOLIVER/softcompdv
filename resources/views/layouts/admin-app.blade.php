@@ -10,6 +10,7 @@
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper">
@@ -84,5 +85,7 @@
     <script src="{{ asset('js/popper.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    {!! Toastr::message() !!}
 </body>
 </html>
