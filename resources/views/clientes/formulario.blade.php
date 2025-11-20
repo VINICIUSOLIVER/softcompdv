@@ -4,7 +4,9 @@
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">Cadastro de cliente</h5>
-            <a href="{{ url("/clientes") }}" class="btn btn-dark"><i class="fas fa-arrow-left"></i> Voltar para listagem</a>
+            <div class="float-right">
+                <a href="{{ url("/clientes") }}" class="btn btn-dark"><i class="fas fa-arrow-left"></i> Voltar para listagem</a>
+            </div>
         </div>
         <div class="card-body">
             {!! Form::model($cliente, ['url' => url("/clientes/salvar"), "method" => "POST"]) !!}

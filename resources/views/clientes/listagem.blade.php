@@ -4,7 +4,9 @@
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">Listagem de clientes</h5>
-            <a href="{{ url("/clientes/novo") }}" class="btn btn-primary"><i class="fas fa-plus"></i> Novo cliente</a>
+            <div class="float-right">
+                <a href="{{ url("/clientes/novo") }}" class="btn btn-primary"><i class="fas fa-plus"></i> Novo cliente</a>
+            </div>
         </div>
         <div class="card-body">
             <table class="table table-striped">
@@ -25,9 +27,16 @@
                         <td>{!! $cliente->nome !!}</td>
                         <td>{!! $cliente->cpf !!}</td>
                         <td>{!! $cliente->email !!}</td>
-                        <td>{!! $cliente->ativo !!}</td>
+                        <td>
+                            @if($cliente->ativo == 1)
+                                <span class="badge badge-success">Ativo</span>
+                            @else
+                                <span class="badge badge-danger">Desativado</span>
+                            @endif
+                        </td>
                         <td>
                             <a href="{{ url("/clientes/{$cliente->id}/editar") }}" class="btn btn-primary btn-sm"><i class="fas fa-pen"></i></a>
+                            <a href="{{ url("/clientes/{$cliente->id}/excluir") }}" class="btn btn-danger btn-sm botao-excluir"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 @endforeach
@@ -36,3 +45,38 @@
         </div>
     </div>
 @endsection
+
+@push("js")
+    <script>
+        $(document).ready(() => {
+            $(".botao-excluir").on("click", (event) => {
+                event.preventDefault();
+
+                const url = $(event.currentTarget).attr("href");
+
+                fetch(url, {
+                    method: "DELETE",
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken
+                    }
+                }).then(async (retorno) => {
+                    const dados = await retorno.json();
+
+                    if (dados.status === true) {
+                        toastr.success("Sucesso!", "Cliente excluído com sucesso.");
+
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 3000);
+
+                        return;
+                    }
+
+                    toastr.error("Erro!", "Não foi possível excluir o cliente.");
+                });
+
+                return false;
+            });
+        });
+    </script>
+@endpush

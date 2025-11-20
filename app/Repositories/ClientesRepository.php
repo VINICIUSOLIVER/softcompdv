@@ -39,4 +39,16 @@ class ClientesRepository
 
         return $model;
     }
+
+    public function excluir($id)
+    {
+        $model = $this->model->find($id);
+
+        // validacoes
+        // return false
+
+        $model->delete();
+
+        return true;
+    }
 }

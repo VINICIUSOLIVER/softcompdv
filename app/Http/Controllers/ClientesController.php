@@ -39,8 +39,17 @@ class ClientesController extends Controller
         $dados = $request->all();
         $cliente = $this->repository->salvar($dados);
 
-        Toastr::success("Cliente cadastrado com sucesso!", "Sucesso!");
+        Toastr::success("Cliente salvo com sucesso!", "Sucesso!");
 
         return redirect()->to(url("/clientes"));
+    }
+
+    public function excluir(Request $request, $id)
+    {
+        $retorno = $this->repository->excluir($id);
+
+        return response()->json([
+            "status" => $retorno
+        ]);
     }
 }
